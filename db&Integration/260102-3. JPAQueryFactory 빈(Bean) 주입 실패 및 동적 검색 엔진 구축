@@ -1,0 +1,21 @@
+1. 현상 (Symptom)
+
+서버 기동 시 Parameter 0 of constructor in ErrorLogService required a bean of type 'JPAQueryFactory' that could not be found 에러와 함께 ApplicationContext 생성 실패.
+
+2. 원인 분석 및 진단 (Diagnosis)
+
+컴포넌트 스캔 대상 누락: 외부 라이브러리인 Querydsl의 JPAQueryFactory는 Spring의 자동 컴포넌트 스캔(@Component, @Service 등) 대상이 아니므로 컨테이너에 등록되지 않음.
+
+주입 시점 불일치: 서비스 레이어에서 주입을 시도했으나 관리되는 객체가 없어 의존성 전이 과정에서 오류 발생.
+
+3. 해결 조치 (Action Taken)
+
+설정 클래스 도입: QuerydslConfig 클래스를 생성하여 @Configuration을 부여하고, EntityManager를 주입받아 JPAQueryFactory를 반환하는 메서드에 @Bean을 붙여 수동 등록.
+
+BooleanBuilder 활용: 조건(서비스명, 상태, 날짜)이 있을 때만 쿼리에 포함되도록 동적 검색 로직을 Querydsl 방식으로 일원화함.
+
+4. 결과 (Result)
+
+애플리케이션이 정상 기동되었으며, 다중 조건에도 유연하게 대응하는 강력한 검색 엔진 구축 완료.
+
+프레임워크의 의존성 주입(DI) 메커니즘을 외부 라이브러리에 적용하는 기술적 유연성 확보.
