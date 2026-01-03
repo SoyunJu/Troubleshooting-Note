@@ -1,0 +1,23 @@
+1. 현상 (Symptom)
+
+git push 시 OpenAI API Key 유출 감지로 인한 GH013: Repository rule violations 에러 발생 및 푸시 차단.
+
+로컬의 master와 원격의 main 브랜치 간 명칭 불일치 및 히스토리 충돌 발생.
+
+2. 원인 분석 및 진단 (Diagnosis)
+
+보안 취약점: application.properties에 민감 정보가 하드코딩된 채 커밋됨.
+
+Git 제약: 과거 커밋 히스토리에 키가 남아있어 단순 삭제 후 커밋으로는 GitHub 보안 정책을 통과할 수 없음.
+
+3. 해결 조치 (Action Taken)
+
+히스토리 초기화: rd /s /q .git을 통한 저장소 초기화로 오염된 기록을 완전히 파괴하고 무결성 확보.
+
+보안 아키텍처 개선: application-secret.properties를 생성하여 자격 증명을 격리하고, .gitignore를 통해 추적 제외 설정.
+
+브랜치 최신화: 기본 브랜치를 main으로 전환하고 기능별 개발을 위한 feature/ 브랜치 전략 도입.
+
+4. 결과 (Result)
+
+보안 취약점이 제거된 깨끗한 저장소를 구축하고, 실무 수준의 브랜치 관리 및 시크릿 관리 체계 수립 완료.
