@@ -1,0 +1,17 @@
+1. 현상 (Symptom)
+
+JUnit의 기본 성공/실패 결과만으로는 중복 로그가 실제로 집계(Aggregation)되는 데이터 흐름을 직관적으로 확인하기 어려움.
+
+2. 원인 분석 및 진단 (Diagnosis)
+
+테스트 코드의 유지보수성과 가독성을 높이기 위해, 단순 단언(Assertion)을 넘어 실제 데이터 변화를 타임라인 순으로 보여줄 필요가 있음.
+
+3. 해결 조치 (Action Taken)
+
+ASCII Table Reporter 구현: System.out.printf를 활용하여 STAGE, LOG_ID, REPEAT, HASH 등을 포함한 콘솔 리포트 포맷 설계.
+
+JUnit Lifecycle 활용: @BeforeEach와 @AfterEach를 통해 테스트 경계 구분을 명확히 하고 가독성 확보.
+
+4. 결과 (Result)
+
+테스트 수행 시 로그 집계 과정을 표 형식으로 확인 가능하여 디버깅 효율성 증대 및 로직 신뢰성 확보.
